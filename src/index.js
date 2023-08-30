@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Root from "./routes/root";
+import Home from "./home.js";
 import Geoloc from "./geoloc.js";
 import Events from "./events.js";
 import SingleEvent from "./single_event.js";
@@ -36,17 +38,23 @@ const router = createBrowserRouter([
         path: "/single-event/:id",
         element: <SingleEvent />,
         loader: async ({ params }) => {
-          console.log('params',params)
+          console.log('params', params)
           return fetch(`https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records?where=uid%20%3D%20${params.id}`)
         }
       },
-      
+
     ],
   },
+  {
+    path: "/home",
+    element: <Home />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId="515988295110-cte5msacd45k78l34bspfgfptpvranm6.apps.googleusercontent.com">
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </GoogleOAuthProvider>,
 );
