@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Outlet } from "react-router-dom";
 import Root from "./routes/root";
 import Home from "./home.js";
 import Geoloc from "./geoloc.js";
@@ -15,12 +16,42 @@ import {
 } from "react-router-dom";
 import "./index.css";
 
+function Headers() {
+  return (
+    <div className="header">
+      <h1>Headers</h1>
+      <Root />
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="footer">
+      <p>Footer</p>
+    </div>
+  );
+}
+
+function Layout() {
+  return (
+    <>
+      <Headers />
+      <Outlet />
+      <Footer />
+    </>
+  );
+}
+
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Root />,
+    errorElement: () => <div>Not Found</div>,
+    element: <Layout />,
     children: [
-
+      {
+        path: "/",
+        element: <Home />,
+      },
       {
         path: "/geoloc",
         element: <Geoloc />,
@@ -42,13 +73,8 @@ const router = createBrowserRouter([
           return fetch(`https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records?where=uid%20%3D%20${params.id}`)
         }
       },
-
     ],
   },
-  {
-    path: "/home",
-    element: <Home />,
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
