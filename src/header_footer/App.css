@@ -1,0 +1,64 @@
+@media (max-width: 320px) {
+
+    h1 {
+        text-align: center;
+        color: #27ae60;
+    }
+
+    #main-logo {
+        display: none;
+        border: 2px solid black;
+        border-radius: 50%;
+        width: 33%;
+    }
+
+    #header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 1250px) {
+
+    #main-logo {
+        position: absolute;
+        top: 12pt;
+        left: 24pt;
+    }
+
+    #header {
+        display: flex;
+        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+body {
+    font-family: "Gill Sans", sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #27ae60;
+}
+
+a {
+    text-decoration: none;
+    /* no underline */
+}
+
+#main-logo {
+    position: absolute;
+    top: 12pt;
+    left: 24pt;
+    width: 10vh;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+}

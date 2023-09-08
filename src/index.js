@@ -2,11 +2,14 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Outlet } from "react-router-dom";
-import Root from "./routes/root";
+import { getLocation as loader } from "./events"
 import Home from "./home.js";
-import Geoloc from "./geoloc.js";
-import Events from "./events.js";
+import GetUserLocation from "./geoloc.js";
+import ListEvents from "./list_events.js";
 import SingleEvent from "./single_event.js";
+import Header from "./header_footer/header.js";
+import Footer from "./header_footer/footer.js";
+
 
 // send to JJ https://www.youtube.com/@Solidjj
 
@@ -16,27 +19,10 @@ import {
 } from "react-router-dom";
 import "./index.css";
 
-function Headers() {
-  return (
-    <div className="header">
-      <h1>Headers</h1>
-      <Root />
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <div className="footer">
-      <p>Footer</p>
-    </div>
-  );
-}
-
 function Layout() {
   return (
     <>
-      <Headers />
+      <Header />
       <Outlet />
       <Footer />
     </>
@@ -54,17 +40,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/geoloc",
-        element: <Geoloc />,
+        element: <GetUserLocation />,
       },
-
       {
         path: "/events",
-        element: <Events />,
+        element: <ListEvents />,
         loader: async () => {
           return fetch(`https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records?limit=20`)
-        },
+        }
       },
-
       {
         path: "/single-event/:id",
         element: <SingleEvent />,
@@ -72,6 +56,11 @@ const router = createBrowserRouter([
           console.log('params', params)
           return fetch(`https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records?where=uid%20%3D%20${params.id}`)
         }
+      },
+      {
+        path: "/events_geo",
+        element: <ListEvents />,
+        loader: loader
       },
     ],
   },
