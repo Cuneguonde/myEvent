@@ -26,4 +26,4 @@ const SingleEvent = () => {
     )
 }
 
-export default SingleEvent
+export default SingleEvent 

@@ -22,7 +22,7 @@ function GeoLoc() {
                     });
           //  }
         }
-    }, [[userLocation]]);
+    }, []);
 
     return (
         <div>
